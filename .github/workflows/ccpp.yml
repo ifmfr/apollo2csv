@@ -2,9 +2,9 @@ name: C/C++ CI w/cmake
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, 20182 ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, 20182 ]
 
 jobs:
   build-ubuntu:
