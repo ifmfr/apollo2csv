@@ -1,2 +1,2 @@
-#define apollo2csv_VERSION_MAJOR @apollo2csv_VERSION_MAJOR@
-#define apollo2csv_VERSION_MINOR @apollo2csv_VERSION_MINOR@
+#define apollo2csv_version_major @apollo2csv_version_major@
+#define apollo2csv_version_minor @apollo2csv_version_minor@
