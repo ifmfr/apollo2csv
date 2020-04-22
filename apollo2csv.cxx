@@ -12,26 +12,16 @@
 #include "apollo2csvConfig.h"
 #include "apolloConvertConfig.h"
 
-void split(std::string str, std::string delimiter,
+void split(std::string str_in, char delimiter,
            std::vector<std::string>& target) {
-  std::string::size_type lastPos = str.find_first_not_of(delimiter, 0);
-  std::string::size_type pos = str.find_first_of(delimiter, lastPos);
-  while (std::string::npos != pos || std::string::npos != lastPos) {
-    target.push_back(str.substr(lastPos, pos - lastPos));
-    lastPos = str.find_first_not_of(delimiter, pos);
-    pos = str.find_first_of(delimiter, lastPos);
+  std::string str;
+  std::stringstream stream(str_in);
+  while (std::getline(stream, str, delimiter)) {
+    target.push_back(str);
   }
 }
 
 int main(int argc, char* argv[]) {
-  // std::string line2 = "\"Gauge\" \"P1\"", line_temp;
-  // std::vector<std::string> splits;
-  // std::stringstream split1(line2);
-  // while (getline(split1, line_temp, '\"')) {
-  //  splits.push_back(line_temp);
-  //}
-  // std::cout << splits.size() << std::endl;
-
   ApolloConvertConfig config;
   int opt;
   while ((opt = getopt(argc, argv, "f:piav:")) != EOF) {
@@ -93,7 +83,7 @@ int main(int argc, char* argv[]) {
   std::vector<std::string> temp_vec;
   temp_vec.clear();
   if (line.compare(0, 16, "names of gauges:") == 0) {
-    split(line, "\"", temp_vec);
+    split(line, '\"', temp_vec);
   } else {
     std::cerr << "Error: Parsing file. Gauges" << std::endl;
     return 1;
@@ -124,7 +114,7 @@ int main(int argc, char* argv[]) {
   for (unsigned int i = 0; i < num_quantities; i++) {
     getline(file_in, line);
     temp_vec.clear();
-    split(line, "\"", temp_vec);
+    split(line, '\"', temp_vec);
     quantities.push_back(temp_vec.at(1));  // Name
     line = temp_vec.at(3);
     line.pop_back();                                   // delete last char "]"
