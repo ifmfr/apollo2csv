@@ -9,7 +9,7 @@ ApolloConvertConfig::ApolloConvertConfig() {
   pre_unit_m = "kPa";
   keep_impulse_m = false;
   compensate_m = true;
-  file_version_m = "20201";
+  file_version_m = "2020";
 }
 
 void ApolloConvertConfig::setFileName(std::string file_name) {
@@ -56,7 +56,7 @@ bool ApolloConvertConfig::isValidFile() {
 }
 
 bool ApolloConvertConfig::isValidFileVersion() {
-  std::set<std::string> file_versions{"20181", "20182", "20201"};
+  std::set<std::string> file_versions{"2018", "2020"};
   if (file_versions.count(file_version_m) == 1) {
     return true;
   } else {

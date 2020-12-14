@@ -29,7 +29,7 @@ class ApolloConvertConfig {
   bool keep_impulse_m;
   // componsate ambient pressure
   bool compensate_m;
-  // gauges file version 20181, 20182 or 20201
+  // gauges file version 2018 or 2020
   std::string file_version_m;
 };
 
