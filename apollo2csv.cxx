@@ -1,12 +1,8 @@
-//#include <stdio.h>
 #include <unistd.h>
-//#include <algorithm>
 #include <fstream>
-//#include <iomanip>
 #include <iostream>
 #include <regex>
 #include <string>
-//#include <vector>
 
 #include "apollo2csv.h"
 #include "apollo2csvConfig.h"
@@ -51,10 +47,11 @@ int main(int argc, char* argv[]) {
     std::cerr << "       -i Keep impulse, default drop" << std::endl;
     std::cerr << "       -a Keep ambient pressure, default conpensate"
               << std::endl;
-    std::cerr << "       -v Apollo version 20181/20182/20201, default 20201"
+    std::cerr << "       -v Apollo version 2018/2020, default 2020"
               << std::endl;
     std::cerr << "Version " << apollo2csv_version_major << '.';
-    std::cerr << apollo2csv_version_minor << std::endl;
+    std::cerr << apollo2csv_version_minor << '.';
+    std::cerr << apollo2csv_version_patch << std::endl;
     return 1;
   }
 
@@ -148,7 +145,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  file_out << "Time [ms]; ";
+  file_out << "Time [ms], ";
   for (size_t i = 0; i < quantities.size(); i++) {
     if (!config.getKeepImpulse() && i == 1) {  // skip impulse
       continue;
@@ -157,15 +154,15 @@ int main(int argc, char* argv[]) {
       file_out << gauges.at(j);
       if (i == 0) {  // handle pressure differently, just name and unit
         if (config.getPressureUnit().compare("kPa") == 0) {
-          file_out << " [kPa]; ";
+          file_out << " [kPa], ";
         } else {
-          file_out << " [psi]; ";
+          file_out << " [psi], ";
         }
       } else if (i == 1) {  // handle impulse differently, just name and unit
         if (config.getPressureUnit().compare("kPa") == 0) {
-          file_out << " [Pa s]; ";
+          file_out << " [Pa s], ";
         } else {
-          file_out << " [psi ms]; ";
+          file_out << " [psi ms], ";
         }
       } else {
         file_out << " " << quantities.at(i);
@@ -183,15 +180,15 @@ int main(int argc, char* argv[]) {
       continue;
     }
 
-    if (config.getFileVersion().compare("20201") == 0) {
+    if (config.getFileVersion().compare("2020") == 0) {
       time = std::stod(line.substr(0, 14));  // s
-    } else {                                 // file_version == 20181 or 20182
+    } else {                                 // file_version == 2018
       time = std::stod(line.substr(0, 13));  // s
     }
     time *= 1000;  // s to ms
 
     file_out.precision(8);
-    file_out << time << "; ";
+    file_out << time << ", ";
 
     file_out.precision(2);
     for (size_t i = 0; i < quantities.size(); i++) {
@@ -199,9 +196,9 @@ int main(int argc, char* argv[]) {
         continue;
       }
       for (size_t j = 0; j < gauges.size(); j++) {
-        if (config.getFileVersion().compare("20201") == 0) {
+        if (config.getFileVersion().compare("2020") == 0) {
           pos = 13 * (i * gauges.size() + j + 1) + 1;
-        } else {  // file_version == 20181 or 20182
+        } else {  // file_version == 2018
           pos = 13 * (i * gauges.size() + j + 1);
         }
         value = std::stod(line.substr(pos, 13));
@@ -216,16 +213,16 @@ int main(int argc, char* argv[]) {
             value /= 6.89476;                                  // kPa to psi
           }
           file_out.precision(2);
-          file_out << value << "; ";
+          file_out << value << ", ";
         } else if (i == 1) {  // quantity impulse
           if (config.getPressureUnit().compare("psi") == 0) {  // psi
             value /= 6.89476;                                  // kPa to psi
           }
           file_out.precision(2);
-          file_out << value << "; ";
+          file_out << value << ", ";
         } else {  // all other quantities
           file_out.precision(4);
-          file_out << value << "; ";
+          file_out << value << ", ";
         }
       }
     }
