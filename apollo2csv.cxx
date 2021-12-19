@@ -66,7 +66,12 @@ int main(int argc, char* argv[]) {
   std::string line;
   while (getline(file_in, line)) {
     if (line.compare(0, 18, "#number of gauges:") == 0) {
-      num_gauges = std::stoul(line.substr(18, line.size()));
+      try {
+        num_gauges = std::stoul(line.substr(18, line.size()));
+      } catch (const std::exception& e) {
+        std::cerr << "Error: Parsing file." << std::endl;
+        return 1;
+      }
       printf("Number of gauges: %zu\n", num_gauges);
       break;
     }
@@ -99,8 +104,13 @@ int main(int argc, char* argv[]) {
 
   while (getline(file_in, line)) {
     if (line.compare(0, 21, "number of quantities:") == 0) {
-      num_quantities = std::stoul(line.substr(23, line.size())) -
-                       1;  // subtract quantity Time
+      try {
+        num_quantities = std::stoul(line.substr(23, line.size())) -
+                         1;  // subtract quantity Time
+      } catch (const std::exception& e) {
+        std::cerr << "Error: Parsing file." << std::endl;
+        return 1;
+      }
       printf("Number of quantities: %d\n", num_quantities);
       break;
     }
