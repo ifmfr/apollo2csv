@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "Error: Parsing file." << std::endl;
         return 1;
       }
-      printf("Number of gauges: %zu\n", num_gauges);
+      std::cout << "Number of gauges: " << num_gauges << std::endl;
       break;
     }
   }
@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "Error: Parsing file." << std::endl;
         return 1;
       }
-      printf("Number of quantities: %d\n", num_quantities);
+      std::cout << "Number of quantities: " << num_quantities << std::endl;
       break;
     }
   }
