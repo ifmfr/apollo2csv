@@ -37,8 +37,9 @@ int main(int argc, char* argv[]) {
     display_usage(argv[0]);
     return 1;
   }
+  opterr = 0; // disable getopt error message
   int opt;
-  while ((opt = getopt(argc, argv, "f:piav:")) != EOF) {
+  while ((opt = getopt(argc, argv, "f:piav:")) != -1) {
     switch (opt) {
       case 'f':
         config.setFileName(optarg);
@@ -54,6 +55,10 @@ int main(int argc, char* argv[]) {
         break;
       case 'v':
         config.setFileVersion(optarg);
+        break;
+      default: // unknown
+        display_usage(argv[0]);
+        return 1;
         break;
     }
   }
