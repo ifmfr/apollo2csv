@@ -8,6 +8,20 @@
 #include "apollo2csvConfig.h"
 #include "apolloConvertConfig.h"
 
+void display_usage(std::string prog_name) {
+  std::cerr << "Usage: " << prog_name << " -f file [-p -i -a -v]" << std::endl;
+  std::cerr << "       -f Apollo gauges file" << std::endl;
+  std::cerr << "       -p Pressure unit psi, default kPa" << std::endl;
+  std::cerr << "       -i Keep impulse, default drop" << std::endl;
+  std::cerr << "       -a Keep ambient pressure, default conpensate"
+            << std::endl;
+  std::cerr << "       -v Apollo version 2018/2020, default 2020"
+            << std::endl;
+  std::cerr << "Version " << apollo2csv_version_major << '.';
+  std::cerr << apollo2csv_version_minor << '.';
+  std::cerr << apollo2csv_version_patch << std::endl;
+}
+
 void split(std::string str_in, char delimiter,
            std::vector<std::string>& target) {
   std::string str;
@@ -19,6 +33,10 @@ void split(std::string str_in, char delimiter,
 
 int main(int argc, char* argv[]) {
   ApolloConvertConfig config;
+  if (argc > 8) { // check number of args
+    display_usage(argv[0]);
+    return 1;
+  }
   int opt;
   while ((opt = getopt(argc, argv, "f:piav:")) != EOF) {
     switch (opt) {
@@ -41,17 +59,7 @@ int main(int argc, char* argv[]) {
   }
 
   if (!config.isValidFile() || !config.isValidFileVersion()) {
-    std::cerr << "Usage: " << argv[0] << " -f file [-p -i -a -v]" << std::endl;
-    std::cerr << "       -f Apollo gauges file" << std::endl;
-    std::cerr << "       -p Pressure unit psi, default kPa" << std::endl;
-    std::cerr << "       -i Keep impulse, default drop" << std::endl;
-    std::cerr << "       -a Keep ambient pressure, default conpensate"
-              << std::endl;
-    std::cerr << "       -v Apollo version 2018/2020, default 2020"
-              << std::endl;
-    std::cerr << "Version " << apollo2csv_version_major << '.';
-    std::cerr << apollo2csv_version_minor << '.';
-    std::cerr << apollo2csv_version_patch << std::endl;
+    display_usage(argv[0]);
     return 1;
   }
 
