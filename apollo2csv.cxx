@@ -8,7 +8,7 @@
 #include "apollo2csvConfig.h"
 #include "apolloConvertConfig.h"
 
-void display_usage(std::string prog_name) {
+void display_usage(const std::string& prog_name) {
   std::cerr << "Usage: " << prog_name << " -f file [-p -i -a -v]" << std::endl;
   std::cerr << "       -f Apollo gauges file" << std::endl;
   std::cerr << "       -p Pressure unit psi, default kPa" << std::endl;

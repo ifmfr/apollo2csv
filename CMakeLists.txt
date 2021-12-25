@@ -4,7 +4,7 @@ project (apollo2csv)
 
 set (apollo2csv_version_major 0)
 set (apollo2csv_version_minor 6)
-set (apollo2csv_version_patch 1)
+set (apollo2csv_version_patch 3)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
 
 configure_file (

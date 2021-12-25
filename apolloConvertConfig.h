@@ -7,15 +7,15 @@ class ApolloConvertConfig {
  public:
   ApolloConvertConfig();
 
-  void setFileName(std::string file_name);
+  void setFileName(const std::string& file_name);
   std::string getFileName();
-  void setPressureUnit(std::string pre_unit);
+  void setPressureUnit(const std::string& pre_unit);
   std::string getPressureUnit();
   void setKeepImpulse(bool keep_impulse);
   bool getKeepImpulse();
   void setCompensate(bool compensate);
   bool getCompensate();
-  void setFileVersion(std::string file_version);
+  void setFileVersion(const std::string& file_version);
   std::string getFileVersion();
   bool isValidFile();
   bool isValidFileVersion();
