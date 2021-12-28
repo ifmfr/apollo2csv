@@ -33,7 +33,7 @@ void split(std::string str_in, char delimiter,
 
 int main(int argc, char* argv[]) {
   ApolloConvertConfig config;
-  if (argc > 8) { // check number of args
+  if (2 > argc || argc > 8) { // check number of args
     display_usage(argv[0]);
     return 1;
   }
