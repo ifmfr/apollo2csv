@@ -3,7 +3,7 @@ Convert [Apollo Blastsimulator](https://www.emi.fraunhofer.de/en/service-offers/
 
 ## Usage
 ```
-apollo2csv -f file [-p -i -a -v]
+apollo2csv -f file [-p -i -a -v 2018]
 
   -f Apollo gauges file
   -p Pressure unit psi, default kPa
