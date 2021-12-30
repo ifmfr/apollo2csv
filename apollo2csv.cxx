@@ -33,9 +33,15 @@ void split(std::string str_in, char delimiter,
 
 int main(int argc, char* argv[]) {
   ApolloConvertConfig config;
-  if (2 > argc || argc > 8) { // check number of args
+  if (argc < 2 || 8 < argc) { // check number of args
     display_usage(argv[0]);
     return 1;
+  }
+  for (int i = 1; i < argc; i++) {
+    if (strlen(argv[i]) > 64) { // check args length
+    display_usage(argv[0]);
+    return 1;
+    }
   }
   opterr = 0; // disable getopt error message
   int opt;
