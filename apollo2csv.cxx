@@ -9,7 +9,7 @@
 #include "apolloConvertConfig.h"
 
 void display_usage(const std::string& prog_name) {
-  std::cerr << "Usage: " << prog_name << " -f file [-p -i -a -v]" << std::endl;
+  std::cerr << "Usage: " << prog_name << " -f file [-p -i -a -v 2018]" << std::endl;
   std::cerr << "       -f Apollo gauges file" << std::endl;
   std::cerr << "       -p Pressure unit psi, default kPa" << std::endl;
   std::cerr << "       -i Keep impulse, default drop" << std::endl;
@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
   for (int i = 1; i < argc; i++) {
-    if (strlen(argv[i]) > 64) { // check args length
+    if (strnlen(argv[i], 100) > 64) { // check args length
     display_usage(argv[0]);
     return 1;
     }
