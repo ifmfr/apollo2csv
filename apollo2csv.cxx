@@ -8,6 +8,20 @@
 #include "apollo2csvConfig.h"
 #include "apolloConvertConfig.h"
 
+void display_usage(const std::string& prog_name) {
+  std::cerr << "Usage: " << prog_name << " -f file [-p -i -a -v]" << std::endl;
+  std::cerr << "       -f Apollo gauges file" << std::endl;
+  std::cerr << "       -p Pressure unit psi, default kPa" << std::endl;
+  std::cerr << "       -i Keep impulse, default drop" << std::endl;
+  std::cerr << "       -a Keep ambient pressure, default conpensate"
+            << std::endl;
+  std::cerr << "       -v Apollo version 2018/2020, default 2020"
+            << std::endl;
+  std::cerr << "Version " << apollo2csv_version_major << '.';
+  std::cerr << apollo2csv_version_minor << '.';
+  std::cerr << apollo2csv_version_patch << std::endl;
+}
+
 void split(std::string str_in, char delimiter,
            std::vector<std::string>& target) {
   std::string str;
@@ -19,8 +33,19 @@ void split(std::string str_in, char delimiter,
 
 int main(int argc, char* argv[]) {
   ApolloConvertConfig config;
+  if (argc < 2 || 8 < argc) { // check number of args
+    display_usage(argv[0]);
+    return 1;
+  }
+  for (int i = 1; i < argc; i++) {
+    if (strlen(argv[i]) > 64) { // check args length
+    display_usage(argv[0]);
+    return 1;
+    }
+  }
+  opterr = 0; // disable getopt error message
   int opt;
-  while ((opt = getopt(argc, argv, "f:piav:")) != EOF) {
+  while ((opt = getopt(argc, argv, "f:piav:")) != -1) {
     switch (opt) {
       case 'f':
         config.setFileName(optarg);
@@ -37,21 +62,15 @@ int main(int argc, char* argv[]) {
       case 'v':
         config.setFileVersion(optarg);
         break;
+      default: // unknown
+        display_usage(argv[0]);
+        return 1;
+        break;
     }
   }
 
   if (!config.isValidFile() || !config.isValidFileVersion()) {
-    std::cerr << "Usage: " << argv[0] << " -f file [-p -i -a -v]" << std::endl;
-    std::cerr << "       -f Apollo gauges file" << std::endl;
-    std::cerr << "       -p Pressure unit psi, default kPa" << std::endl;
-    std::cerr << "       -i Keep impulse, default drop" << std::endl;
-    std::cerr << "       -a Keep ambient pressure, default conpensate"
-              << std::endl;
-    std::cerr << "       -v Apollo version 2018/2020, default 2020"
-              << std::endl;
-    std::cerr << "Version " << apollo2csv_version_major << '.';
-    std::cerr << apollo2csv_version_minor << '.';
-    std::cerr << apollo2csv_version_patch << std::endl;
+    display_usage(argv[0]);
     return 1;
   }
 

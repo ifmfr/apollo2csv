@@ -4,21 +4,18 @@
 #include <iostream>
 #include <set>
 
-ApolloConvertConfig::ApolloConvertConfig() {
-  file_name_m = "";
-  pre_unit_m = "kPa";
-  keep_impulse_m = false;
-  compensate_m = true;
-  file_version_m = "2020";
+ApolloConvertConfig::ApolloConvertConfig()
+  : file_name_m{""}, pre_unit_m{"kPa"}, keep_impulse_m{false},
+    compensate_m{true}, file_version_m{"2020"} {
 }
 
-void ApolloConvertConfig::setFileName(std::string file_name) {
+void ApolloConvertConfig::setFileName(const std::string& file_name) {
   file_name_m = file_name;
 }
 
 std::string ApolloConvertConfig::getFileName() { return file_name_m; }
 
-void ApolloConvertConfig::setPressureUnit(std::string pre_unit) {
+void ApolloConvertConfig::setPressureUnit(const std::string& pre_unit) {
   pre_unit_m = pre_unit;
 }
 
@@ -36,7 +33,7 @@ void ApolloConvertConfig::setCompensate(bool compensate) {
 
 bool ApolloConvertConfig::getCompensate() { return compensate_m; }
 
-void ApolloConvertConfig::setFileVersion(std::string file_version) {
+void ApolloConvertConfig::setFileVersion(const std::string& file_version) {
   file_version_m = file_version;
 }
 
