@@ -1,0 +1,47 @@
+apolloConvertConfig.h:11:15: style:inconclusive: Technically the member function 'ApolloConvertConfig::getFileName' can be const. [functionConst]
+  std::string getFileName();
+              ^
+apolloConvertConfig.cxx:16:34: note: Technically the member function 'ApolloConvertConfig::getFileName' can be const.
+std::string ApolloConvertConfig::getFileName() { return file_name_m; }
+                                 ^
+apolloConvertConfig.h:11:15: note: Technically the member function 'ApolloConvertConfig::getFileName' can be const.
+  std::string getFileName();
+              ^
+apolloConvertConfig.h:13:15: style:inconclusive: Technically the member function 'ApolloConvertConfig::getPressureUnit' can be const. [functionConst]
+  std::string getPressureUnit();
+              ^
+apolloConvertConfig.cxx:22:34: note: Technically the member function 'ApolloConvertConfig::getPressureUnit' can be const.
+std::string ApolloConvertConfig::getPressureUnit() { return pre_unit_m; }
+                                 ^
+apolloConvertConfig.h:13:15: note: Technically the member function 'ApolloConvertConfig::getPressureUnit' can be const.
+  std::string getPressureUnit();
+              ^
+apolloConvertConfig.h:15:8: style:inconclusive: Technically the member function 'ApolloConvertConfig::getKeepImpulse' can be const. [functionConst]
+  bool getKeepImpulse();
+       ^
+apolloConvertConfig.cxx:28:27: note: Technically the member function 'ApolloConvertConfig::getKeepImpulse' can be const.
+bool ApolloConvertConfig::getKeepImpulse() { return keep_impulse_m; }
+                          ^
+apolloConvertConfig.h:15:8: note: Technically the member function 'ApolloConvertConfig::getKeepImpulse' can be const.
+  bool getKeepImpulse();
+       ^
+apolloConvertConfig.h:17:8: style:inconclusive: Technically the member function 'ApolloConvertConfig::getCompensate' can be const. [functionConst]
+  bool getCompensate();
+       ^
+apolloConvertConfig.cxx:34:27: note: Technically the member function 'ApolloConvertConfig::getCompensate' can be const.
+bool ApolloConvertConfig::getCompensate() { return compensate_m; }
+                          ^
+apolloConvertConfig.h:17:8: note: Technically the member function 'ApolloConvertConfig::getCompensate' can be const.
+  bool getCompensate();
+       ^
+apolloConvertConfig.h:19:15: style:inconclusive: Technically the member function 'ApolloConvertConfig::getFileVersion' can be const. [functionConst]
+  std::string getFileVersion();
+              ^
+apolloConvertConfig.cxx:40:34: note: Technically the member function 'ApolloConvertConfig::getFileVersion' can be const.
+std::string ApolloConvertConfig::getFileVersion() { return file_version_m; }
+                                 ^
+apolloConvertConfig.h:19:15: note: Technically the member function 'ApolloConvertConfig::getFileVersion' can be const.
+  std::string getFileVersion();
+              ^
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
+
